@@ -1,6 +1,6 @@
 const fs = require("fs");
-const males = require("./data/male.json");
-const females = require("./data/female.json");
+const males = require("../data/male.json");
+const females = require("../data/female.json");
 const unisex = [];
 
 const maleAndFemaleNameDiff = [];

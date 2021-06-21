@@ -1,8 +1,8 @@
 const { Sequelize, QueryTypes } = require("sequelize");
 const fs = require("fs");
 
-const originalMales = require("./data/male.json");
-const originalFemales = require("./data/female.json");
+const originalMales = require("../data/male.json");
+const originalFemales = require("../data/female.json");
 
 String.prototype.turkishToEnglish = function () {
   return this.replace(/Ğ/gim, "G")
