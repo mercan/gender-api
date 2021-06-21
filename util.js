@@ -1,30 +1,84 @@
-const INPUT_LENGTH = 16; // number of characters in name used to derive input for algorithm
-const GENDER_NEURAL_NETWORK_KEY = "jsonGenderNeuralNetwork";
+const fs = require("fs");
+const males = require("./data/male.json");
+const females = require("./data/female.json");
+const unisex = [];
 
-String.prototype.turkishtoEnglish = function () {
-  return this.replace(/Ğ/gim, "g")
-    .replace(/Ü/gim, "ü")
-    .replace(/Ş/gim, "ş")
-    .replace(/I/gim, "i")
-    .replace(/İ/gim, "i")
-    .replace(/Ö/gim, "ö")
-    .replace(/Ç/gim, "ç")
-    .toLocaleLowerCase();
-};
+const maleAndFemaleNameDiff = [];
+const uniqueMaleNames = [];
+const uniqueFemaleNames = [];
 
-function convertNameToInput(name) {
-  name = name.toLocaleLowerCase();
+/*
+males.forEach(({ name }) => females.find((obj) => (obj.name === name ? unisex.push(obj) : false)));
+unisex.forEach(({ name }) => {
+  const male = males.find((obj) => obj.name === name);
+  const female = females.find((obj) => obj.name === name);
+  maleAndFemaleNameDiff.push([
+    male,
+    female,
+    {
+      diff: male.count - female.count,
+      gender: Number(male.count) > Number(female.count) ? "male" : "female",
+    },
+  ]);
+});
 
-  if (name.length > INPUT_LENGTH) {
-    name = name.substring(INPUT_LENGTH);
+maleAndFemaleNameDiff.map((obj) => {
+  if (obj[2].diff >= 3000 || obj[2].diff <= -3000) {
+    console.log(obj);
   }
+});
+*/
 
-  while (name.length < INPUT_LENGTH) {
-    name = " " + name;
+/*
+males.forEach(({ name }) => {
+  const searchName = females.find((obj) => obj.name === name);
+  if (!searchName) uniqueMaleNames.push(name);
+});
+
+females.forEach(({ name }) => {
+  const searchName = males.find((obj) => obj.name === name);
+  if (!searchName) uniqueFemaleNames.push(name);
+});
+
+//console.log(uniqueMaleNames, uniqueFemaleNames);
+
+fs.writeFile("./original_data/uniqueMale.json", JSON.stringify(uniqueMaleNames, null, 2), (err) => {
+  if (err) throw err;
+  console.log("Created <uniqueMale.json>");
+});
+
+fs.writeFile(
+  "./original_data/uniqueFemale.json",
+  JSON.stringify(uniqueFemaleNames, null, 2),
+  (err) => {
+    if (err) throw err;
+    console.log("Created <uniqueFemale.json>");
   }
+);
+*/
 
-  const characters = name.split("");
-  return characters.map((c) => (c == " " ? 0 : c.charCodeAt(0) / 500));
-}
+/*
+const new_males = males.sort((a, b) => b.count - a.count);
+console.log(new_males);
+const new_females = females.sort((a, b) => b.count - a.count);
+console.log(new_females);
+*/
 
-module.exports = { INPUT_LENGTH, convertNameToInput, GENDER_NEURAL_NETWORK_KEY };
+/*
+fs.writeFile("./original_data/male.json", JSON.stringify(new_males, null, 2), (err) => {
+  if (err) throw err;
+  console.log("Created <male.json>");
+});
+
+fs.writeFile("./original_data/female.json", JSON.stringify(new_females, null, 2), (err) => {
+  if (err) throw err;
+  console.log("Created <female.json>");
+});
+*/
+
+/*
+const overUsedMaleNames = males.filter(({ count }) => count >= 40000);
+const overUsedFemaleNames = females.filter(({ count }) => count >= 40000);
+
+console.log(overUsedMaleNames, overUsedFemaleNames);
+*/

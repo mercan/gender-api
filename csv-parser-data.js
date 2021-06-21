@@ -1,7 +1,7 @@
 const csv = require("csv-parser");
 const fs = require("fs");
-let original_male_names = require("./original_data/male.json");
-let original_female_names = require("./original_data/female.json");
+let original_male_names = require("./data/male.json");
+let original_female_names = require("./data/female.json");
 
 String.prototype.turkishToEnglish = function () {
   return this.replace(/Ğ/gim, "G")
