@@ -20,7 +20,7 @@ String.prototype.turkishToEnglish = function () {
     .replace(/ç/gim, "c")
     .toLocaleUpperCase();
 };
-
+/*
 let original_male_names_1 = {};
 original_male_names = original_male_names.reduce((acc, { name }) => {
   if (acc[name.turkishToEnglish()]) {
@@ -42,6 +42,7 @@ original_female_names = original_female_names.reduce((acc, { name }) => {
 
   return acc;
 }, {});
+*/
 
 let males = [];
 let females = [];
@@ -50,6 +51,7 @@ const fullTextSearch = (search, text) => {
   return text.split("").every((character) => character === search);
 };
 
+/*
 fs.createReadStream("males.csv")
   .pipe(csv())
   .on("data", ({ first: data }) => {
@@ -94,7 +96,9 @@ fs.createReadStream("males.csv")
       console.log("The file was saved! {males.csv} > {male.json}");
     });
   });
+*/
 
+/*
 fs.createReadStream("females.csv")
   .pipe(csv())
   .on("data", ({ first: data }) => {
@@ -139,3 +143,4 @@ fs.createReadStream("females.csv")
       console.log("The file was saved! {females.csv} > {female.json}");
     });
   });
+*/

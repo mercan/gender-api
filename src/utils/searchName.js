@@ -1,14 +1,12 @@
-const males = require("../data/male.json");
-const females = require("../data/female.json");
+const males = require("../data/males.json");
+const females = require("../data/females.json");
 
 module.exports = (name) => {
   const nameInput = name.charAt(0).toLocaleUpperCase() + name.substring(1);
   const nameSearch = ({ name }) => name === nameInput;
 
-  const male = males.find(nameSearch) || { name: nameInput, count: 0 };
-  const female = females.find(nameSearch) || { name: nameInput, count: 0 };
-  male.count = Number(male.count);
-  female.count = Number(female.count);
+  const male = males.find(nameSearch) || { name: nameInput, count: 0, country: null };
+  const female = females.find(nameSearch) || { name: nameInput, count: 0, country: null };
 
   if (!males.find(nameSearch) && !females.find(nameSearch)) {
     return {
@@ -28,7 +26,7 @@ module.exports = (name) => {
     return {
       name: nameInput,
       gender: "Male",
-      country: "TR",
+      country: male.country,
       total_names: totalName,
       probability: probability === "1" ? 100 : Number(probability),
     };
@@ -42,7 +40,7 @@ module.exports = (name) => {
     return {
       name: nameInput,
       gender: "Female",
-      country: "TR",
+      country: female.country,
       total_names: totalName,
       probability: probability === "1" ? 100 : Number(probability),
     };
