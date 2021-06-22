@@ -6,6 +6,10 @@ const females = [];
 const country = "US";
 const dataFolderPath = "/Users/mercan/Desktop/gender-api/src/data";
 
+// Names
+const glb_males = require("../data/males.json");
+const glb_females = require("../data/females.json");
+
 // TR Name
 const tr_males = require("../data/tr_male.json");
 const tr_females = require("../data/tr_female.json");
@@ -79,4 +83,14 @@ fs.writeFile(`${dataFolderPath}/females.json`, JSON.stringify(females, null, 2),
   if (err) throw err;
   console.log("The file was saved! {females.json}");
 });
+*/
+
+/*
+console.log("Tekil");
+console.log(glb_males.reduce((acc, _) => (acc += 1), 0));
+console.log(glb_females.reduce((acc, _) => (acc += 1), 0));
+console.log("\n");
+console.log("Toplam");
+console.log(glb_males.reduce((acc, { count }) => (acc += count), 0));
+console.log(glb_females.reduce((acc, { count }) => (acc += count), 0));
 */
