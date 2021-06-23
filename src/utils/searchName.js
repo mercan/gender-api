@@ -2,20 +2,25 @@ const males = require("../data/males.json");
 const females = require("../data/females.json");
 
 module.exports = (name) => {
-  const nameInput = name.charAt(0).toLocaleUpperCase() + name.substring(1);
-  const nameSearch = ({ name }) => name === nameInput;
+  const originalName = name;
+  name = name.toLocaleLowerCase();
+  name = name.replaceAll("i", "[İi]").replaceAll("ı", "[Iı]");
+
+  const regex = new RegExp(`^${name}$`, "gi");
+  const nameSearch = ({ name }) => name.match(regex);
 
   let male = males.filter(nameSearch).sort((a, b) => b.count - a.count);
   let female = females.filter(nameSearch).sort((a, b) => b.count - a.count);
 
   if (!male.length) {
-    male = { name: nameInput, count: 0, country: null };
+    male = { name, count: 0, country: null };
   }
 
   if (!female.length) {
-    female = { name: nameInput, count: 0, country: null };
+    female = { name, count: 0, country: null };
   }
 
+  console.log(male, female);
   if (Array.isArray(male) && Array.isArray(female) && male[0].count > female[0].count) {
     male = male[0];
     for (let i = 0; i < female.length; i++) {
@@ -40,7 +45,8 @@ module.exports = (name) => {
 
   if (!Array.isArray(male) && !Array.isArray(female) && !male.count && !female.count) {
     return {
-      name: nameInput,
+      name: originalName,
+      q: originalName,
       gender: "null",
       country: "null",
       total_names: 0,
@@ -54,7 +60,8 @@ module.exports = (name) => {
       probability[0] === "0" ? probability.substring(1, 3) : probability.substring(0, 2);
 
     return {
-      name: nameInput,
+      name: male.name,
+      q: originalName,
       gender: "Male",
       country: male.country,
       total_names: totalName,
@@ -68,7 +75,8 @@ module.exports = (name) => {
       probability[0] === "0" ? probability.substring(1, 3) : probability.substring(0, 2);
 
     return {
-      name: nameInput,
+      name: female.name,
+      q: originalName,
       gender: "Female",
       country: female.country,
       total_names: totalName,
