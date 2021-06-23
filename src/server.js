@@ -45,6 +45,11 @@ fastify.get("/", (req, res) => {
 
   if (req.query.name.indexOf(",") !== -1) {
     const names = [...new Set(req.query.name.split(","))];
+
+    if (names.length > 100) {
+      names.length = 100;
+    }
+
     const data = names
       .map((name) => searchName(name))
       .filter(Boolean)
