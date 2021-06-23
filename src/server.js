@@ -40,7 +40,7 @@ fastify.get("/", (req, res) => {
 
   if (req.query.name.indexOf(",") !== -1) {
     const names = [...new Set(req.query.name.split(","))];
-    const data = names.map((name) => searchName(name));
+    const data = names.map((name) => searchName(name)).filter(Boolean);
     return res.code(200).send(data);
   }
 

@@ -2,9 +2,20 @@ const males = require("../data/males.json");
 const females = require("../data/females.json");
 
 const nameSplit = (name) =>
-  name.split(" ")[0].split("-")[0].split(".")[0].split("_")[0].split("!")[0].split("~")[0];
+  name
+    .split(",")[0]
+    .split(" ")[0]
+    .split("-")[0]
+    .split(".")[0]
+    .split("_")[0]
+    .split("!")[0]
+    .split("~")[0];
 
 module.exports = (name) => {
+  if (name.length === 0) {
+    return false;
+  }
+
   const originalName = name;
   name = nameSplit(name).toLocaleLowerCase("tr");
   name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
