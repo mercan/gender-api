@@ -28,7 +28,12 @@ const opts = {
 
 fastify.get("/", opts, (req, res) => {
   if (!req.query.name) {
-    return res.code(400).send({ status: 400, message: "Name is required" });
+    return res.code(400).send({
+      status: 400,
+      message: "Name is required",
+      example: "https://gender-api0.herokuapp.com/?name=${name}",
+      example_: "https://gender-api0.herokuapp.com/?name=İbrahim",
+    });
   }
 
   return res.code(200).send(searchName(req.query.name));

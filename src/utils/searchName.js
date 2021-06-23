@@ -1,11 +1,6 @@
 const males = require("../data/males.json");
 const females = require("../data/females.json");
 
-/**
- * Yapmak istediğim şey aynı isimden birden fazla dilde varsa en çok hangi dilde kullanılıyorsa o isim
- * onu sec ve onun zıt cinsiyet yönündeki kişi secerken de ikisinin de aynı ülkeden olduğuna dikkat et
- * */
-
 module.exports = (name) => {
   const nameInput = name.charAt(0).toLocaleUpperCase() + name.substring(1);
   const nameSearch = ({ name }) => name === nameInput;
@@ -14,11 +9,11 @@ module.exports = (name) => {
   let female = females.filter(nameSearch).sort((a, b) => b.count - a.count);
 
   if (!male.length) {
-    male = { name: nameInput, count: 0, country: "null" };
+    male = { name: nameInput, count: 0, country: null };
   }
 
   if (!female.length) {
-    female = { name: nameInput, count: 0, country: "null" };
+    female = { name: nameInput, count: 0, country: null };
   }
 
   if (Array.isArray(male) && Array.isArray(female) && male[0].count > female[0].count) {
@@ -37,10 +32,10 @@ module.exports = (name) => {
     }
   }
 
-  if (male.hasOwnProperty("count") && !male.count) {
-    female = female[0];
-  } else if (female.hasOwnProperty("count") && !female.count) {
-    male = male[0];
+  if (!Array.isArray(male) && !male.count) {
+    female = female.length ? female[0] : female;
+  } else if (!Array.isArray(female) && !female.count) {
+    male = male.length ? male[0] : male;
   }
 
   if (!Array.isArray(male) && !Array.isArray(female) && !male.count && !female.count) {
