@@ -4,6 +4,7 @@ const females = require("../data/females.json");
 module.exports = (name) => {
   const originalName = name;
   name = name.toLocaleLowerCase();
+  console.log(originalName, name, name.toLocaleLowerCase(), name.toLowerCase());
   name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
 
   const regex = new RegExp(`^${name}$`, "gi");
