@@ -1,9 +1,12 @@
 const males = require("../data/males.json");
 const females = require("../data/females.json");
 
+const nameSplit = (name) =>
+  name.split(" ")[0].split("-")[0].split(".")[0].split("_")[0].split("!")[0].split("~")[0];
+
 module.exports = (name) => {
   const originalName = name;
-  name = name.toLocaleLowerCase("tr");
+  name = nameSplit(name).toLocaleLowerCase("tr");
   name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
 
   const regex = new RegExp(`^${name}$`, "gi");
