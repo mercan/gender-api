@@ -25,17 +25,27 @@ module.exports = (name) => {
 
   if (Array.isArray(male) && Array.isArray(female) && male[0].count > female[0].count) {
     male = male[0];
+
     for (let i = 0; i < female.length; i++) {
       if (male.country === female[i].country) {
         female = female[i];
       }
     }
+
+    if (Array.isArray(female)) {
+      female = { name, count: 0, country: null };
+    }
   } else if (Array.isArray(male) && Array.isArray(female) && female[0].count > male[0].count) {
     female = female[0];
+
     for (let i = 0; i < male.length; i++) {
       if (female.country === male[i].country) {
         male = male[i];
       }
+    }
+
+    if (Array.isArray(male)) {
+      male = { name, count: 0, country: null };
     }
   }
 
