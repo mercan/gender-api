@@ -16,6 +16,7 @@ const opts = {
         type: "object",
         properties: {
           name: { type: "string" },
+          q: { type: "string" },
           gender: { type: "string" },
           country: { type: "string" },
           total_names: { type: "number" },

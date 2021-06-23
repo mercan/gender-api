@@ -4,7 +4,7 @@ const females = require("../data/females.json");
 module.exports = (name) => {
   const originalName = name;
   name = name.toLocaleLowerCase();
-  name = name.replaceAll("i", "[İi]").replaceAll("ı", "[Iı]");
+  name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
 
   const regex = new RegExp(`^${name}$`, "gi");
   const nameSearch = ({ name }) => name.match(regex);
@@ -20,7 +20,6 @@ module.exports = (name) => {
     female = { name, count: 0, country: null };
   }
 
-  console.log(male, female);
   if (Array.isArray(male) && Array.isArray(female) && male[0].count > female[0].count) {
     male = male[0];
     for (let i = 0; i < female.length; i++) {
