@@ -28,6 +28,11 @@ const opts = {
   },
 };
 
+fastify.addHook("onResponse", (request, reply, next) => {
+  reply.getResponseTime();
+  next();
+});
+
 fastify.get("/", (req, res) => {
   if (!req.query.name) {
     return res.code(400).send({
@@ -40,11 +45,15 @@ fastify.get("/", (req, res) => {
 
   if (req.query.name.indexOf(",") !== -1) {
     const names = [...new Set(req.query.name.split(","))];
-    const data = names.map((name) => searchName(name)).filter(Boolean);
+    const data = names
+      .map((name) => searchName(name))
+      .filter(Boolean)
+      .map((obj) => ({ ...obj, duration: res.getResponseTime() }));
+
     return res.code(200).send(data);
   }
 
-  return res.code(200).send(searchName(req.query.name));
+  return res.code(200).send({ ...searchName(req.query.name), duration: res.getResponseTime() });
 });
 
 fastify.listen(process.env.PORT || 3000, "0.0.0.0", (err, address) => {
