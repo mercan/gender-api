@@ -3,6 +3,7 @@ const females = require("../data/females.json");
 
 const nameSplit = (name) =>
   name
+    .trim()
     .split(",")[0]
     .split("-")[0]
     .split(".")[0]

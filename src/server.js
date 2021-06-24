@@ -53,14 +53,42 @@ fastify.get("/", (req, res) => {
     const data = names
       .map((name) => searchName(name))
       .filter(Boolean)
-      .map((obj) => ({ ...obj, duration: `${res.getResponseTime().toFixed()}ms` }));
+      .map((obj) => {
+        const data = { ...obj, duration: `${res.getResponseTime().toFixed()}ms` };
+        if (data.name.split(" ").length > 1 && data.probability) {
+          const names = data.name.split(" ");
+          const namesData = names
+            .map((name) => searchName(name))
+            .reduce((acc, obj) => {
+              delete obj["q"];
+              acc.push(obj);
+              return acc;
+            }, []);
+          data["names"] = namesData;
+        }
+
+        return data;
+      });
 
     return res.code(200).send(data);
   }
 
-  return res
-    .code(200)
-    .send({ ...searchName(req.query.name), duration: `${res.getResponseTime().toFixed()}ms` });
+  const data = { ...searchName(req.query.name), duration: `${res.getResponseTime().toFixed()}ms` };
+
+  if (req.query.name.split(" ").length > 1 && data.probability) {
+    const names = data.name.split(" ");
+    const namesData = names
+      .map((name) => searchName(name))
+      .reduce((acc, obj) => {
+        delete obj["q"];
+        acc.push(obj);
+        return acc;
+      }, []);
+
+    data["names"] = namesData;
+  }
+
+  return res.code(200).send(data);
 });
 
 fastify.listen(process.env.PORT || 3000, "0.0.0.0", (err, address) => {
