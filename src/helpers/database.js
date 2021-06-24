@@ -1,8 +1,8 @@
 const { Sequelize, QueryTypes } = require("sequelize");
 const fs = require("fs");
 
-const originalMales = require("../data/male.json");
-const originalFemales = require("../data/female.json");
+const originalMales = require("../data/tr_male.json");
+const originalFemales = require("../data/tr_female.json");
 
 String.prototype.turkishToEnglish = function () {
   return this.replace(/Ğ/gim, "G")
@@ -38,11 +38,15 @@ const nameTotalSearchMale = () => {
   });
 
   Promise.all(promises).then((results) => {
-    fs.writeFile("./original_data/maleAndCount.json", JSON.stringify(results, null, 2), (err) => {
-      if (err) throw err;
+    fs.writeFile(
+      `${__dirname}/../original_data/tr_male.json`,
+      JSON.stringify(results, null, 2),
+      (err) => {
+        if (err) throw err;
 
-      console.log("Created <maleAndCount.json>");
-    });
+        console.log("Created <maleAndCount.json>");
+      }
+    );
   });
 };
 
@@ -62,21 +66,29 @@ const nameTotalSearchFemale = () => {
   });
 
   Promise.all(promises).then((results) => {
-    fs.writeFile("./original_data/femaleAndCount.json", JSON.stringify(results, null, 2), (err) => {
-      if (err) throw err;
+    if (Array.isArray(results)) {
+      console.log(results.length);
+    }
 
-      console.log("Created <femaleAndCount.json>");
-    });
+    fs.writeFile(
+      `${__dirname}/../original_data/tr_female.json`,
+      JSON.stringify(results, null, 2),
+      (err) => {
+        if (err) throw err;
+
+        console.log("Created <femaleAndCount.json>");
+      }
+    );
   });
 };
 
 /*
 const original_male_names_1 = {};
 const original_male_names = originalMales.reduce((acc, { name }) => {
-  if (acc[name.turkishToEnglish()]) {
-    original_male_names_1[name.turkishToEnglish()] = name;
-  } else {
+  if (!acc[name.turkishToEnglish()]) {
     acc[name.turkishToEnglish()] = name;
+  } else {
+    original_male_names_1[name.turkishToEnglish() + "_"] = name;
   }
 
   return acc;
@@ -86,15 +98,17 @@ const original_male_names = originalMales.reduce((acc, { name }) => {
 /*
 const original_female_names_1 = {};
 const original_female_names = originalFemales.reduce((acc, { name }) => {
-  if (acc[name.turkishToEnglish()]) {
-    original_female_names_1[name.turkishToEnglish()] = name;
-  } else {
+  if (!acc[name.turkishToEnglish()]) {
     acc[name.turkishToEnglish()] = name;
+  } else {
+    original_female_names_1[name.turkishToEnglish() + "_"] = name;
   }
 
   return acc;
 }, {});
+*/
 
+/*
 const databaseConfig = {
   HOST: "localhost",
   USER: "postgres",
@@ -133,27 +147,29 @@ sequelize
   })
   .then((names) => {
     names.forEach(({ first: name }) => {
-      if (name.includes(" ")) {
-        const firstName = name.split(" ")[0];
-        const secondName = name.split(" ")[1];
-
-        if (!searchMaleNames.includes(firstName)) {
-          searchMaleNames.push(firstName);
-        } else if (!searchMaleNames.includes(secondName)) {
-          searchMaleNames.push(secondName);
-        }
-      } else if (!searchMaleNames.includes(name)) {
+      if (!searchMaleNames.includes(name)) {
         searchMaleNames.push(name);
       }
     });
 
     searchMaleNames = searchMaleNames.reduce((acc, name) => {
-      if (original_male_names_1[name]) {
-        acc.push({ [name]: original_male_names_1[name] });
-      }
+      if (name.includes(" ")) {
+        const names = name.split(" ");
+        const originalMaleNames = [];
 
-      if (original_male_names[name]) {
-        acc.push({ [name]: original_male_names[name] });
+        names.forEach((name) => {
+          if (original_male_names[name]) {
+            originalMaleNames.push(original_male_names[name]);
+          }
+        });
+
+        if (originalMaleNames.length >= 1 && names.length === originalMaleNames.length) {
+          acc.push({ [name]: originalMaleNames.join(" ") });
+        }
+      } else {
+        if (original_male_names[name]) {
+          acc.push({ [name]: original_male_names[name] });
+        }
       }
 
       return acc;
@@ -170,27 +186,29 @@ sequelize
   })
   .then((names) => {
     names.forEach(({ first: name }) => {
-      if (name.includes(" ")) {
-        const firstName = name.split(" ")[0];
-        const secondName = name.split(" ")[1];
-
-        if (!searchFemaleNames.includes(firstName)) {
-          searchFemaleNames.push(firstName);
-        } else if (!searchFemaleNames.includes(secondName)) {
-          searchFemaleNames.push(secondName);
-        }
-      } else if (!searchFemaleNames.includes(name)) {
+      if (!searchFemaleNames.includes(name)) {
         searchFemaleNames.push(name);
       }
     });
 
     searchFemaleNames = searchFemaleNames.reduce((acc, name) => {
-      if (original_female_names_1[name]) {
-        acc.push({ [name]: original_female_names_1[name] });
-      }
+      if (name.includes(" ")) {
+        const names = name.split(" ");
+        const originalFemaleNames = [];
 
-      if (original_female_names[name]) {
-        acc.push({ [name]: original_female_names[name] });
+        names.forEach((name) => {
+          if (original_female_names[name]) {
+            originalFemaleNames.push(original_female_names[name]);
+          }
+        });
+
+        if (originalFemaleNames.length >= 1 && names.length === originalFemaleNames.length) {
+          acc.push({ [name]: originalFemaleNames.join(" ") });
+        }
+      } else {
+        if (original_female_names[name]) {
+          acc.push({ [name]: original_female_names[name] });
+        }
       }
 
       return acc;

@@ -4,11 +4,16 @@ const females = require("../data/females.json");
 const nameSplit = (name) =>
   name
     .split(",")[0]
-    .split(" ")[0]
     .split("-")[0]
     .split(".")[0]
     .split("_")[0]
     .split("!")[0]
+    .split("&")[0]
+    .split("/")[0]
+    .split("(")[0]
+    .split(")")[0]
+    .split("?")[0]
+    .split("*")[0]
     .split("~")[0]
     .split('"')[0]
     .split("'")[0]

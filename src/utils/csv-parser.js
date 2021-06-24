@@ -11,8 +11,8 @@ const glb_males = require("../data/males.json");
 const glb_females = require("../data/females.json");
 
 // TR Name
-const tr_males = require("../data/tr_male.json");
-const tr_females = require("../data/tr_female.json");
+const tr_males = require("../original_data/tr_male.json");
+const tr_females = require("../original_data/tr_female.json");
 
 // US Name
 const us_males = require("../data/us_male.json");
@@ -57,7 +57,9 @@ females.push(
     return acc;
   }, [])
 );
+*/
 
+/*
 fs.writeFile(`${dataFolderPath}/tr_male.json`, JSON.stringify(males, null, 2), (err) => {
   if (err) throw err;
   console.log("The file was saved! {tr_male.json}");
