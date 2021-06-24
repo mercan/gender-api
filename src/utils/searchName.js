@@ -70,8 +70,8 @@ module.exports = (name) => {
     return {
       name: originalName,
       q: originalName,
-      gender: "null",
-      country: "null",
+      gender: null,
+      country: null,
       total_names: 0,
       probability: 0,
     };
