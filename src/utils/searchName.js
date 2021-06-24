@@ -9,12 +9,33 @@ const nameSplit = (name) =>
     .split(".")[0]
     .split("_")[0]
     .split("!")[0]
-    .split("~")[0];
+    .split("~")[0]
+    .split('"')[0]
+    .split("'")[0]
+    .split("+")[0];
 
 module.exports = (name) => {
   if (name.length === 0) {
     return false;
   }
+
+  if (name[0] === '"') {
+    name = name.slice(1);
+  }
+
+  if (name[0] === "'") {
+    name = name.slice(1);
+  }
+
+  if (name[0] === "<") {
+    name = name.slice(1);
+  }
+
+  if (name[0] === ">") {
+    name = name.slice(1);
+  }
+
+  console.log(name);
 
   const originalName = name;
   name = nameSplit(name).toLocaleLowerCase("tr");
