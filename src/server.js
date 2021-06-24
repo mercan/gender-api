@@ -53,12 +53,14 @@ fastify.get("/", (req, res) => {
     const data = names
       .map((name) => searchName(name))
       .filter(Boolean)
-      .map((obj) => ({ ...obj, duration: res.getResponseTime() }));
+      .map((obj) => ({ ...obj, duration: `${res.getResponseTime().toFixed()}ms` }));
 
     return res.code(200).send(data);
   }
 
-  return res.code(200).send({ ...searchName(req.query.name), duration: res.getResponseTime() });
+  return res
+    .code(200)
+    .send({ ...searchName(req.query.name), duration: `${res.getResponseTime().toFixed()}ms` });
 });
 
 fastify.listen(process.env.PORT || 3000, "0.0.0.0", (err, address) => {
