@@ -35,8 +35,6 @@ module.exports = (name) => {
     name = name.slice(1);
   }
 
-  console.log(name);
-
   const originalName = name;
   name = nameSplit(name).toLocaleLowerCase("tr");
   name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
