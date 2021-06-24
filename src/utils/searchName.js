@@ -75,12 +75,30 @@ module.exports = (name) => {
       total_names: 0,
       probability: 0,
     };
+  } else if (male.count && !female.count) {
+    return {
+      name: male.name,
+      q: originalName,
+      gender: "Male",
+      country: male.country,
+      total_names: male.count,
+      probability: 100,
+    };
+  } else if (!male.count && female.count) {
+    return {
+      name: female.name,
+      q: originalName,
+      gender: "Female",
+      country: female.country,
+      total_names: female.count,
+      probability: 100,
+    };
   } else if (male.count > female.count) {
     const totalName = male.count + female.count;
-    let probability = String(male.count / totalName);
-    probability = probability.substring(probability.indexOf(".") + 1);
-    probability =
-      probability[0] === "0" ? probability.substring(1, 3) : probability.substring(0, 2);
+
+    let probability = male.count / totalName;
+    probability = probability.toFixed(3).split(".")[1];
+    probability = probability.length === 2 ? Number(probability) : probability.slice(0, 2);
 
     return {
       name: male.name,
@@ -92,10 +110,10 @@ module.exports = (name) => {
     };
   } else if (female.count > male.count) {
     const totalName = male.count + female.count;
-    let probability = String(female.count / totalName);
-    probability = probability.substring(probability.indexOf(".") + 1);
-    probability =
-      probability[0] === "0" ? probability.substring(1, 3) : probability.substring(0, 2);
+
+    let probability = female.count / totalName;
+    probability = probability.toFixed(3).split(".")[1];
+    probability = probability.length === 2 ? Number(probability) : probability.slice(0, 2);
 
     return {
       name: female.name,
