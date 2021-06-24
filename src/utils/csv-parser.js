@@ -7,12 +7,12 @@ const country = "US";
 const dataFolderPath = "/Users/mercan/Desktop/gender-api/src/data";
 
 // Names
-const glb_males = require("../data/males.json");
-const glb_females = require("../data/females.json");
+//const glb_males = require("../data/males.json");
+//const glb_females = require("../data/females.json");
 
 // TR Name
-const tr_males = require("../original_data/tr_male.json");
-const tr_females = require("../original_data/tr_female.json");
+const tr_males = require("../data/tr_male.json");
+const tr_females = require("../data/tr_female.json");
 
 // US Name
 const us_males = require("../data/us_male.json");
