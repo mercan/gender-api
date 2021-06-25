@@ -34,16 +34,7 @@ fastify.addHook("onResponse", (request, reply, next) => {
 });
 
 fastify.get("/", (req, res) => {
-  if (!req.query.name) {
-    return res.code(400).send({
-      status: 400,
-      message: "Name is required",
-      example: "https://gender-api0.herokuapp.com/?name={name}",
-      example_: "https://gender-api0.herokuapp.com/?name=İbrahim",
-    });
-  }
-
-  if (req.query.name.indexOf(",") !== -1) {
+  if (req.query.name && req.query.name.indexOf(",") !== -1) {
     const names = [...new Set(req.query.name.split(","))];
 
     if (names.length > 100) {
@@ -73,7 +64,9 @@ fastify.get("/", (req, res) => {
     return res.code(200).send(data);
   }
 
-  const data = { ...searchName(req.query.name), duration: `${res.getResponseTime().toFixed()}ms` };
+  const nameData = searchName(req.query.name);
+  req.query.name = nameData.name;
+  const data = { ...nameData, duration: `${res.getResponseTime().toFixed()}ms` };
 
   if (req.query.name.split(" ").length > 1 && data.probability) {
     const names = data.name.split(" ");

@@ -21,6 +21,15 @@ const nameSplit = (name) =>
     .split("+")[0];
 
 module.exports = (name) => {
+  if (name === undefined) {
+    const randomNumber = Math.floor(Math.random() * 2);
+    if (randomNumber === 0) {
+      name = males[Math.floor(Math.random() * males.length)].name;
+    } else {
+      name = females[Math.floor(Math.random() * females.length)].name;
+    }
+  }
+
   if (name.length === 0) {
     return false;
   }
