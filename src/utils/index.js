@@ -1,84 +1,27 @@
+const csv = require("csv-parser");
 const fs = require("fs");
-const males = require("../data/male.json");
-const females = require("../data/female.json");
-const unisex = [];
 
-const maleAndFemaleNameDiff = [];
-const uniqueMaleNames = [];
-const uniqueFemaleNames = [];
+// Names
+const glb_males = require("../data/males.json");
+const glb_females = require("../data/females.json");
 
-/*
-males.forEach(({ name }) => females.find((obj) => (obj.name === name ? unisex.push(obj) : false)));
-unisex.forEach(({ name }) => {
-  const male = males.find((obj) => obj.name === name);
-  const female = females.find((obj) => obj.name === name);
-  maleAndFemaleNameDiff.push([
-    male,
-    female,
-    {
-      diff: male.count - female.count,
-      gender: Number(male.count) > Number(female.count) ? "male" : "female",
-    },
-  ]);
-});
+// TR Name
+const tr_males = require("../data/tr_male.json");
+const tr_females = require("../data/tr_female.json");
 
-maleAndFemaleNameDiff.map((obj) => {
-  if (obj[2].diff >= 3000 || obj[2].diff <= -3000) {
-    console.log(obj);
-  }
-});
-*/
+// US Name
+const us_males = require("../data/us_male.json");
+const us_females = require("../data/us_female.json");
 
-/*
-males.forEach(({ name }) => {
-  const searchName = females.find((obj) => obj.name === name);
-  if (!searchName) uniqueMaleNames.push(name);
-});
+const male_names = [...tr_males, ...us_males].sort((a, b) => b.count - a.count);
+const female_names = [...tr_females, ...us_females].sort((a, b) => b.count - a.count);
 
-females.forEach(({ name }) => {
-  const searchName = males.find((obj) => obj.name === name);
-  if (!searchName) uniqueFemaleNames.push(name);
-});
-
-//console.log(uniqueMaleNames, uniqueFemaleNames);
-
-fs.writeFile("./original_data/uniqueMale.json", JSON.stringify(uniqueMaleNames, null, 2), (err) => {
+fs.writeFile(`${__dirname}/../data/males.json`, JSON.stringify(male_names, null, 2), (err) => {
   if (err) throw err;
-  console.log("Created <uniqueMale.json>");
+  console.log("Created <males.json>");
 });
 
-fs.writeFile(
-  "./original_data/uniqueFemale.json",
-  JSON.stringify(uniqueFemaleNames, null, 2),
-  (err) => {
-    if (err) throw err;
-    console.log("Created <uniqueFemale.json>");
-  }
-);
-*/
-
-/*
-const new_males = males.sort((a, b) => b.count - a.count);
-console.log(new_males);
-const new_females = females.sort((a, b) => b.count - a.count);
-console.log(new_females);
-*/
-
-/*
-fs.writeFile("./original_data/male.json", JSON.stringify(new_males, null, 2), (err) => {
+fs.writeFile(`${__dirname}/../data/females.json`, JSON.stringify(female_names, null, 2), (err) => {
   if (err) throw err;
-  console.log("Created <male.json>");
+  console.log("Created <females.json>");
 });
-
-fs.writeFile("./original_data/female.json", JSON.stringify(new_females, null, 2), (err) => {
-  if (err) throw err;
-  console.log("Created <female.json>");
-});
-*/
-
-/*
-const overUsedMaleNames = males.filter(({ count }) => count >= 40000);
-const overUsedFemaleNames = females.filter(({ count }) => count >= 40000);
-
-console.log(overUsedMaleNames, overUsedFemaleNames);
-*/
