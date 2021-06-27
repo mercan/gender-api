@@ -104,3 +104,6 @@ dist
 .tern-port
 
 .DS_Store
+.sql_database.js
+males.json
+females.json

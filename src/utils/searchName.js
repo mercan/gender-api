@@ -1,35 +1,9 @@
-const males = require("../data/males.json");
-const females = require("../data/females.json");
+// Get Data Models
+const Name = require("../models/Name");
 
-const nameSplit = (name) =>
-  name
-    .trim()
-    .split(",")[0]
-    .split("-")[0]
-    .split(".")[0]
-    .split("_")[0]
-    .split("!")[0]
-    .split("&")[0]
-    .split("/")[0]
-    .split("(")[0]
-    .split(")")[0]
-    .split("?")[0]
-    .split("*")[0]
-    .split("~")[0]
-    .split('"')[0]
-    .split("'")[0]
-    .split("+")[0];
+const nameSplit = require("./nameSplit");
 
-module.exports = (name) => {
-  if (name === undefined) {
-    const randomNumber = Math.floor(Math.random() * 2);
-    if (randomNumber === 0) {
-      name = males[Math.floor(Math.random() * males.length)].name;
-    } else {
-      name = females[Math.floor(Math.random() * females.length)].name;
-    }
-  }
-
+module.exports = async (name) => {
   if (name.length === 0) {
     return false;
   }
@@ -55,52 +29,22 @@ module.exports = (name) => {
   name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
 
   const regex = new RegExp(`^${name}$`, "gi");
-  const nameSearch = ({ name }) => name.match(regex);
 
-  let male = males.filter(nameSearch).sort((a, b) => b.count - a.count);
-  let female = females.filter(nameSearch).sort((a, b) => b.count - a.count);
+  let male, female;
+  const result = await Name.find({ name: { $regex: regex } }, { _id: false }).sort({ count: -1 });
+  const filterCountry = result
+    .slice(1)
+    .filter(({ gender, country }) => result[0].country === country && result[0].gender !== gender);
 
-  if (!male.length) {
-    male = { name, count: 0, country: null };
-  }
-
-  if (!female.length) {
-    female = { name, count: 0, country: null };
-  }
-
-  if (Array.isArray(male) && Array.isArray(female) && male[0].count > female[0].count) {
-    male = male[0];
-
-    for (let i = 0; i < female.length; i++) {
-      if (male.country === female[i].country) {
-        female = female[i];
-      }
+  if (result.length) {
+    if (result[0].gender === "Male") {
+      male = result[0];
+      female = filterCountry[0];
+    } else {
+      female = result[0];
+      male = filterCountry[0];
     }
-
-    if (Array.isArray(female)) {
-      female = { name, count: 0, country: null };
-    }
-  } else if (Array.isArray(male) && Array.isArray(female) && female[0].count > male[0].count) {
-    female = female[0];
-
-    for (let i = 0; i < male.length; i++) {
-      if (female.country === male[i].country) {
-        male = male[i];
-      }
-    }
-
-    if (Array.isArray(male)) {
-      male = { name, count: 0, country: null };
-    }
-  }
-
-  if (!Array.isArray(male) && !male.count) {
-    female = female.length ? female[0] : female;
-  } else if (!Array.isArray(female) && !female.count) {
-    male = male.length ? male[0] : male;
-  }
-
-  if (!Array.isArray(male) && !Array.isArray(female) && !male.count && !female.count) {
+  } else {
     return {
       name: originalName,
       q: originalName,
@@ -109,7 +53,17 @@ module.exports = (name) => {
       total_names: 0,
       probability: 0,
     };
-  } else if (male.count > female.count) {
+  }
+
+  if (!male) {
+    male = { name, count: 0, country: null };
+  }
+
+  if (!female) {
+    female = { name, count: 0, country: null };
+  }
+
+  if (male.count > female.count) {
     const totalName = male.count + female.count;
 
     let probability = String(male.count / totalName);
