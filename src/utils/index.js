@@ -13,9 +13,12 @@ const tr_females = require("../data/tr_female.json");
 const us_males = require("../data/us_male.json");
 const us_females = require("../data/us_female.json");
 
+/*
 const male_names = [...tr_males, ...us_males].sort((a, b) => b.count - a.count);
 const female_names = [...tr_females, ...us_females].sort((a, b) => b.count - a.count);
+*/
 
+/*
 fs.writeFile(`${__dirname}/../data/males.json`, JSON.stringify(male_names, null, 2), (err) => {
   if (err) throw err;
   console.log("Created <males.json>");
@@ -25,3 +28,4 @@ fs.writeFile(`${__dirname}/../data/females.json`, JSON.stringify(female_names, n
   if (err) throw err;
   console.log("Created <females.json>");
 });
+*/
