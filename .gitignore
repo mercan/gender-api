@@ -105,6 +105,6 @@ dist
 
 
 .DS_Store
-.sql_database.js
-males.json
-females.json
+.src/helpers/sql_database.js
+.src/data/males.json
+.src/data/females.json
