@@ -103,7 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-
 *.DS_Store
 src/helpers/sql_database.js
 src/data/females.json
