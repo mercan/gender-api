@@ -106,4 +106,4 @@ dist
 *.DS_Store
 src/helpers/sql_database.js
 src/data/females.json
-src/data/male.json
+src/data/males.json
