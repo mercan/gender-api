@@ -4,10 +4,6 @@ const Name = require("../models/Name");
 const nameSplit = require("./nameSplit");
 
 module.exports = async (name) => {
-  if (name.length === 0) {
-    return false;
-  }
-
   if (name[0] === '"') {
     name = name.slice(1);
   }
