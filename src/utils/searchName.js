@@ -27,7 +27,10 @@ module.exports = async (name) => {
   const regex = new RegExp(`^${name}$`, "gi");
 
   let male, female;
-  const result = await Name.find({ name: { $regex: regex } }, { _id: false }).sort({ count: -1 });
+  const result = await Name.find({ name: { $regex: regex } }, { _id: false }).sort({
+    count: -1,
+  });
+
   const filterCountry = result
     .slice(1)
     .filter(({ gender, country }) => result[0].country === country && result[0].gender !== gender);

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const countriesDigitCodes = require("../data/countriesDigitCodes.json");
 
-const nameSchema = new mongoose.Schema({
+const Name = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   gender: { type: String, required: true, enum: ["Male", "Female"] },
   count: { type: Number, required: true },
@@ -12,4 +12,5 @@ const nameSchema = new mongoose.Schema({
   created_At: { type: Date, default: new Date() },
 });
 
-module.exports = mongoose.model("Name", nameSchema, "names");
+Name.index({ name: "text" });
+module.exports = mongoose.model("Name", Name, "names");
