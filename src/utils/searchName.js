@@ -27,7 +27,7 @@ module.exports = async (name) => {
   const regex = new RegExp(`^${name}$`, "gi");
 
   let male, female;
-  const result = await Name.find({ name: { $regex: regex } }, { _id: false }).sort({
+  const result = await Name.find({ name: { $regex: regex } }).sort({
     count: -1,
   });
 

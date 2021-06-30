@@ -8,7 +8,6 @@ const Name = new mongoose.Schema({
   count: { type: Number, required: true },
   country: { type: String, required: true, enum: countriesDigitCodes },
 
-  updated_At: { type: Date, default: new Date() },
   created_At: { type: Date, default: new Date() },
 });
 

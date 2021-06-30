@@ -104,6 +104,12 @@ dist
 .tern-port
 
 *.DS_Store
+
 src/helpers/sql_database.js
 src/data/females.json
 src/data/males.json
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore

@@ -2,7 +2,6 @@ const dotenv = require("dotenv").config();
 const fastify = require("fastify")({
   logger: false,
 });
-const searchName = require("./utils/searchName");
 
 // Database connection
 require("./helpers/database")();
@@ -25,5 +24,6 @@ fastify.listen(process.env.PORT || 3000, "0.0.0.0", (err, address) => {
     process.exit(1);
   }
 
+  console.log(`server listening on ${address}`);
   fastify.log.info(`server listening on ${address}`);
 });
