@@ -103,6 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
+python/
+python/turkadlar.py
+
 *.DS_Store
 
 src/helpers/sql_database.js

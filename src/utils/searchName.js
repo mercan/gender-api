@@ -20,16 +20,15 @@ module.exports = async (name) => {
     name = name.slice(1);
   }
 
-  const originalName = name;
-  name = nameSplit(name).toLocaleLowerCase("tr");
-  name = name.replace(/i/g, "[İi]").replace(/ı/g, "[Iı]");
+  function capitalize(word) {
+    return word[0].toLocaleUpperCase("tr") + word.slice(1).toLocaleLowerCase("tr");
+  }
 
-  const regex = new RegExp(`^${name}$`, "gi");
+  const originalName = name;
+  name = nameSplit(capitalize(name));
 
   let male, female;
-  const result = await Name.find({ name: { $regex: regex } }).sort({
-    count: -1,
-  });
+  const result = await Name.find({ name }).sort({ count: -1 });
 
   const filterCountry = result
     .slice(1)

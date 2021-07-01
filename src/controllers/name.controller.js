@@ -4,12 +4,10 @@ const searchName = require("../utils/searchName");
 // Get Name
 const getName = async (req, res) => {
   if (!req.query.name) {
-    return res
-      .code(400)
-      .send({
-        name: "Name is required",
-        example: "https://gender-api0.herokuapp.com/api/search/?name=İbrahim",
-      });
+    return res.code(400).send({
+      message: "Name is required",
+      example: "https://gender-api0.herokuapp.com/api/search/?name=İbrahim",
+    });
   }
 
   if (req.query.name.indexOf(",") !== -1) {
