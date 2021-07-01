@@ -1,7 +1,13 @@
 // Get Data Models
 const Name = require("../models/Name");
-
 const nameSplit = require("./nameSplit");
+
+String.prototype.capitalize = function () {
+  return this.toLocaleLowerCase("tr")
+    .split(" ")
+    .map((word) => word.charAt(0).toLocaleUpperCase("tr") + word.slice(1))
+    .join(" ");
+};
 
 module.exports = async (name) => {
   if (name[0] === '"') {
@@ -20,12 +26,12 @@ module.exports = async (name) => {
     name = name.slice(1);
   }
 
-  function capitalize(word) {
-    return word[0].toLocaleUpperCase("tr") + word.slice(1).toLocaleLowerCase("tr");
+  if (name[0] === "!") {
+    name = name.slice(1);
   }
 
   const originalName = name;
-  name = nameSplit(capitalize(name));
+  name = nameSplit(name.capitalize());
 
   let male, female;
   const result = await Name.find({ name }).sort({ count: -1 });
