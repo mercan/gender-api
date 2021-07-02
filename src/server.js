@@ -1,4 +1,3 @@
-"use strict";
 const server = require("./app")({
   logger: {
     level: "error",
