@@ -22,8 +22,7 @@
     "fastify": "^3.18.0",
     "fastify-compress": "^3.6.0",
     "fastify-helmet": "^5.3.1",
-    "mongoose": "^5.12.15",
-    "pino-pretty": "^5.1.0"
+    "mongoose": "^5.12.15"
   },
   "devDependencies": {
     "tap": "^15.0.9"
