@@ -67,6 +67,13 @@ const getName = async (req, res) => {
     return res.code(200).send(namesData.filter(Boolean));
   }
 
+  const redisData = await Names.find(req.query.name);
+
+  if (redisData) {
+    delete redisData["when"];
+    return res.code(200).send({ ...redisData, duration: `${res.getResponseTime().toFixed()}ms` });
+  }
+
   const nameData = await searchName(req.query.name);
   req.query.name = nameData.name;
   const data = { ...nameData, duration: `${res.getResponseTime().toFixed()}ms` };
