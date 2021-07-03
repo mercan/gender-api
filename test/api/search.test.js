@@ -1,13 +1,14 @@
 const tap = require("tap");
 const buildFastify = require("../../src/app");
 const mongoose = require("mongoose");
+const Names = require("../../src/lib/Names");
 
-tap.test("GET `api/search` route 'Single - Name Search'", async (t) => {
+tap.test("GET `search` route 'Single - Name Search'", async (t) => {
   const fastify = buildFastify();
 
   const response = await fastify.inject({
     method: "GET",
-    url: "api/search/",
+    url: "search/",
     query: { name: "İbrahim" },
   });
 
@@ -22,12 +23,12 @@ tap.test("GET `api/search` route 'Single - Name Search'", async (t) => {
   t.equal(country, "TR");
 });
 
-tap.test("GET `api/search` route 'Multiple - Name Search'", async (t) => {
+tap.test("GET `search` route 'Multiple - Name Search'", async (t) => {
   const fastify = buildFastify();
 
   const response = await fastify.inject({
     method: "GET",
-    url: "api/search/",
+    url: "search/",
     query: { name: "İbrahim,Ayşe,James,Elizabeth" },
   });
 
@@ -54,12 +55,12 @@ tap.test("GET `api/search` route 'Multiple - Name Search'", async (t) => {
   t.equal(body[3].country, "US");
 });
 
-tap.test("GET `api/search` route 'Single - Double Name Search'", async (t) => {
+tap.test("GET `search` route 'Single - Double Name Search'", async (t) => {
   const fastify = buildFastify();
 
   const response = await fastify.inject({
     method: "GET",
-    url: "api/search/",
+    url: "search/",
     query: { name: "İbrahim Can" },
   });
 
@@ -83,15 +84,16 @@ tap.test("GET `api/search` route 'Single - Double Name Search'", async (t) => {
   t.equal(names[1].country, "TR");
 });
 
-tap.test("GET `api/search` route 'Multiple - Double Name Search'", async (t) => {
+tap.test("GET `search` route 'Multiple - Double Name Search'", async (t) => {
   const fastify = buildFastify();
 
   t.teardown(() => fastify.close());
   t.teardown(() => mongoose.connection.close());
+  t.teardown(() => Names.disconnect());
 
   const response = await fastify.inject({
     method: "GET",
-    url: "api/search/",
+    url: "search/",
     query: { name: "İbrahim Can,Ayşe Gül" },
   });
 
