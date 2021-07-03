@@ -2,7 +2,7 @@ require("dotenv").config();
 const fastify = require("fastify");
 
 // Database connection
-require("./helpers/Database")();
+require("./helpers/database")();
 
 function build(opts = {}) {
   const app = fastify(opts);

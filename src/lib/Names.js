@@ -43,7 +43,7 @@ class Names {
   exists(name) {
     return new Promise((resolve, reject) => {
       this.client.hexists("names", name, (err, exists) => {
-        if (err) reject(err);
+        if (err) reject(new Error(err.message));
 
         resolve(exists);
       });
@@ -53,7 +53,7 @@ class Names {
   length() {
     return new Promise((resolve, reject) => {
       this.client.hlen("names", (err, count) => {
-        if (err) reject(err);
+        if (err) reject(new Error(err.message));
 
         resolve(count);
       });
@@ -63,7 +63,7 @@ class Names {
   find(name) {
     return new Promise((resolve, reject) => {
       this.client.hget("names", name, (err, data) => {
-        if (err) reject(err);
+        if (err) reject(new Error(err.message));
 
         resolve(JSON.parse(data));
       });
@@ -75,7 +75,7 @@ class Names {
       const active = [];
 
       this.client.hgetall("names", (err, names) => {
-        if (err) reject(err);
+        if (err) reject(new Error(err.message));
 
         for (let name in names) {
           active.push(JSON.parse(names[name]));
