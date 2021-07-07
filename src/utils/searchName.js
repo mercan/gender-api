@@ -2,15 +2,16 @@
 const Name = require("../models/Name");
 const nameSplit = require("./nameSplit");
 
-String.prototype.capitalize = function () {
-  return this.toLocaleLowerCase("tr")
+const capitalize = (string) => {
+  return string
+    .toLocaleLowerCase("tr")
     .split(" ")
     .map((word) => word.charAt(0).toLocaleUpperCase("tr") + word.slice(1))
     .join(" ");
 };
 
 module.exports = async (name) => {
-  if (name[0] === '"') {
+  if (name[0] === `"`) {
     name = name.slice(1);
   }
 
@@ -31,7 +32,7 @@ module.exports = async (name) => {
   }
 
   const originalName = name;
-  name = nameSplit(name.capitalize());
+  name = nameSplit(capitalize(name));
 
   let male, female;
   const result = await Name.find({ name }).sort({ count: -1 });

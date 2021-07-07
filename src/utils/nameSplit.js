@@ -13,6 +13,6 @@ module.exports = (name) =>
     .split("?")[0]
     .split("*")[0]
     .split("~")[0]
-    .split('"')[0]
+    .split(`"`)[0]
     .split("'")[0]
     .split("+")[0];

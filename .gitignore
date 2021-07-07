@@ -111,6 +111,8 @@ python/turkadlar.py
 src/helpers/sql_database.js
 src/data/females.json
 src/data/males.json
+src/python
+src/csv
 
 # Docker files
 Dockerfile

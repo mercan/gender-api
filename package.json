@@ -1,7 +1,6 @@
 {
   "name": "gender-api",
   "version": "1.0.0",
-  "description": "",
   "main": "src/server.js",
   "license": "MIT",
   "author": {
@@ -22,6 +21,7 @@
     "fastify": "^3.18.0",
     "fastify-compress": "^3.6.0",
     "fastify-helmet": "^5.3.1",
+    "fastify-rate-limit": "^5.5.0",
     "mongoose": "^5.12.15",
     "redis": "^3.1.2"
   },
