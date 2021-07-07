@@ -27,10 +27,7 @@ const getName = async (req, res) => {
         if (data) {
           delete data["when"];
 
-          return {
-            ...data,
-            duration: `${res.getResponseTime().toFixed()}ms`,
-          };
+          return { ...data, duration: `${res.getResponseTime().toFixed()}ms` };
         }
       })
     );
