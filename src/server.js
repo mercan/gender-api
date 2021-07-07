@@ -1,5 +1,10 @@
 const server = require("./app")({
-  logger: { level: "error" },
+  logger: {
+    level: "error",
+    prettyPrint: {
+      colorize: true,
+    },
+  },
   trustProxy: true,
 });
 

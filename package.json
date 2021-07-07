@@ -23,6 +23,7 @@
     "fastify-helmet": "^5.3.1",
     "fastify-rate-limit": "^5.5.0",
     "mongoose": "^5.12.15",
+    "pino-pretty": "^5.1.0",
     "redis": "^3.1.2"
   },
   "devDependencies": {
