@@ -30,9 +30,5 @@ module.exports = {
     password: process.env.REDIS_PASSWORD,
     port: process.env.REDIS_PORT,
     url: process.env.REDIS_URL,
-
-    labs_hostname: process.env.REDIS_LABS_HOSTNAME,
-    labs_password: process.env.REDIS_LABS_PASSWORD,
-    labs_port: process.env.REDIS_LABS_PORT,
   },
 };
