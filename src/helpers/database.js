@@ -1,7 +1,8 @@
+const config = require("../config/index");
 const mongoose = require("mongoose");
 
 module.exports = () => {
-  mongoose.connect(process.env.DB_HOST, {
+  mongoose.connect(config.databaseURL, {
     useNewUrlParser: true,
     useFindAndModify: true,
     useCreateIndex: true,

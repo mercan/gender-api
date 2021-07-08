@@ -1,3 +1,4 @@
+const config = require("../../config/index");
 const nameController = require("../controllers/name.controller");
 
 const routes = [
@@ -6,8 +7,11 @@ const routes = [
     url: "/search/",
     config: {
       rateLimit: {
-        max: 200,
-        timeWindow: 1000 * 60 * 60 * 1,
+        max: config.rateLimit.name.max,
+        timeWindow: config.rateLimit.name.timeWindow,
+        allowList: function (req) {
+          return req.headers["authorization"] !== undefined;
+        },
       },
     },
     handler: nameController.getName,

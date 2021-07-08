@@ -12,16 +12,21 @@
     "url": "git+https://github.com/mercan/gender-api.git"
   },
   "scripts": {
-    "start": "NODE_ENV=production node ./src/server.js",
-    "start:dev": "NODE_ENV=dev nodemon ./src/server.js",
-    "test": "tap"
+    "postinstall": "cp -r ./src/lib/rate-limit/* ./node_modules/fastify-rate-limit/",
+    "start": "npm run postinstall && NODE_ENV=production node ./src/server.js",
+    "start:dev": "npm run postinstall && NODE_ENV=development nodemon ./src/server.js",
+    "test": "tap tests/*.test.js"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
-    "fastify": "^3.18.0",
+    "fastify": "^3.18.1",
     "fastify-compress": "^3.6.0",
-    "fastify-helmet": "^5.3.1",
+    "fastify-formbody": "^5.0.0",
+    "fastify-helmet": "^5.3.2",
     "fastify-rate-limit": "^5.5.0",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.15",
     "pino-pretty": "^5.1.0",
     "redis": "^3.1.2"

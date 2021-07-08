@@ -1,3 +1,4 @@
+const config = require("../config/index");
 const redis = require("redis");
 
 class Redis {
@@ -15,9 +16,9 @@ class Redis {
 }
 
 const options = {
-  host: process.env.REDIS_HOSTNAME,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD,
+  password: config.redis.password,
+  host: config.redis.hostname,
+  port: config.redis.port,
   no_ready_check: true,
 };
 

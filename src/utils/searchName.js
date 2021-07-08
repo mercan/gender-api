@@ -11,7 +11,7 @@ const capitalize = (string) => {
 };
 
 module.exports = async (name) => {
-  if (name[0] === `"`) {
+  if (name[0] === '"') {
     name = name.slice(1);
   }
 

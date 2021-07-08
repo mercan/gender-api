@@ -1,6 +1,7 @@
+const config = require("./config/index");
 const server = require("./app")({
   logger: {
-    level: "error",
+    level: config.logger.level,
     prettyPrint: {
       colorize: true,
     },
@@ -8,7 +9,7 @@ const server = require("./app")({
   trustProxy: true,
 });
 
-server.listen(process.env.PORT || 3000, "0.0.0.0", (err, address) => {
+server.listen(config.port, "0.0.0.0", (err, address) => {
   if (err) {
     server.log.error(err);
     process.exit(1);
