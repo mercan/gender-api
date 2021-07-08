@@ -1,8 +1,8 @@
-const tokenCreate = require("../helpers/tokenCreate");
-const User = require("../models/User");
+const tokenCreate = require("../utils/tokenCreate");
+const userModel = require("../models/User");
 
 const Dependencies = {
-  userModel: User,
+  userModel,
 };
 
 class UserService {

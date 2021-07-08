@@ -1,7 +1,7 @@
 const config = require("../config/index");
 const redis = require("redis");
 
-class Redis {
+class RedisService {
   constructor(options) {
     this.options = options;
     this.client = redis.createClient(this.options);
@@ -22,4 +22,4 @@ const options = {
   no_ready_check: true,
 };
 
-module.exports = new Redis(options);
+module.exports = new RedisService(options);

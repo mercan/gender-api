@@ -1,5 +1,5 @@
 // User Service
-const UserService = require("../../services/user");
+const UserService = require("../../services/User");
 
 // User Validation
 const { SignupSchema, SignInSchema } = require("../../validation/user.schema");

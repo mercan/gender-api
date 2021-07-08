@@ -1,8 +1,8 @@
 // Utils
 const searchName = require("../../utils/searchName");
 
-// Libs
-const Names = require("../../lib/Names");
+// Name Service
+const Name = require("../../services/Name");
 
 // Get Name
 const getName = async (req, res) => {
@@ -22,7 +22,7 @@ const getName = async (req, res) => {
 
     const namesData = await Promise.all(
       names.map(async (name) => {
-        const data = await Names.find(name);
+        const data = await Name.find(name);
 
         if (data) {
           delete data["when"];
@@ -49,10 +49,10 @@ const getName = async (req, res) => {
           }
 
           if (data.probability) {
-            const exists = await Names.exists(data.name);
+            const exists = await Name.exists(data.name);
 
             if (!exists) {
-              Names.upsert(data.name, data);
+              Name.upsert(data.name, data);
             }
           }
 
@@ -64,7 +64,7 @@ const getName = async (req, res) => {
     return res.code(200).send(namesData.filter(Boolean));
   }
 
-  const redisData = await Names.find(req.query.name);
+  const redisData = await Name.find(req.query.name);
 
   if (redisData) {
     delete redisData["when"];
@@ -81,10 +81,10 @@ const getName = async (req, res) => {
   }
 
   if (data.probability) {
-    const exists = await Names.exists(req.query.name);
+    const exists = await Name.exists(req.query.name);
 
     if (!exists) {
-      Names.upsert(req.query.name, data);
+      Name.upsert(req.query.name, data);
     }
   }
 

@@ -1,9 +1,9 @@
 const removeProperty = (propKey, { [propKey]: propValue, ...rest }) => rest;
-const RedisClient = require("../helpers/redis");
+const RedisService = require("./Redis");
 
-class Names {
-  constructor() {
-    this.client = RedisClient.init();
+class NameService {
+  constructor(RedisService) {
+    this.client = RedisService.init();
   }
 
   disconnect() {
@@ -86,4 +86,4 @@ class Names {
   }
 }
 
-module.exports = new Names();
+module.exports = new NameService(RedisService);
