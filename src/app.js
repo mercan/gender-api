@@ -13,7 +13,7 @@ function build(opts = {}) {
     global: false,
   });
 
-  app.addHook("onResponse", (_request, reply, next) => {
+  app.addHook("onResponse", (request, reply, next) => {
     reply.getResponseTime();
     next();
   });
