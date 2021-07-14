@@ -18,14 +18,11 @@ const signup = async (req, res) => {
   const { error, token } = await UserService.Signup(userDTO);
 
   // error?.code
-  switch (error && error.code) {
-    case 11000:
-      return res
-        .code(400)
-        .send({ statusCode: 400, message: `${error.keyPattern[0]} is already in use.` });
-
-    default:
-      break;
+  if (error && error.code === 11000) {
+    return res.code(409).send({
+      statusCode: 409,
+      message: "Email is already taken",
+    });
   }
 
   return res.code(200).send({ statusCode: 200, token });

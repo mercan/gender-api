@@ -1,7 +1,7 @@
 const tap = require("tap");
 const buildFastify = require("../../src/app");
 const mongoose = require("mongoose");
-const Name = require("../../src/services/Name");
+const NameService = require("../../src/services/Name");
 
 tap.test("GET `search` route 'Single - Name Search'", async (t) => {
   const fastify = buildFastify();
@@ -87,8 +87,8 @@ tap.test("GET `search` route 'Multiple - Double Name Search'", async (t) => {
   const fastify = buildFastify();
 
   t.teardown(() => fastify.close());
+  t.teardown(() => NameService.disconnect());
   t.teardown(() => mongoose.connection.close());
-  t.teardown(() => Name.disconnect());
 
   const response = await fastify.inject({
     method: "GET",

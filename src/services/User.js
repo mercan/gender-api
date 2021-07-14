@@ -23,13 +23,13 @@ class UserService {
     const userRecord = await this.userModel.findOne({ email });
 
     if (!userRecord) {
-      return { message: "Email not registered." };
+      return { message: "Email not registered" };
     }
 
     const isMatch = userRecord.comparePassword(password);
 
     if (!isMatch) {
-      return { message: "Password is incorrect." };
+      return { message: "Password is incorrect" };
     }
 
     return { token: tokenCreate(userRecord) };

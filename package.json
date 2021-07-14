@@ -15,7 +15,7 @@
     "postinstall": "cp -r ./src/lib/rate-limit/* ./node_modules/fastify-rate-limit/",
     "start": "npm run postinstall && NODE_ENV=production node ./src/server.js",
     "start:dev": "npm run postinstall && NODE_ENV=development nodemon ./src/server.js",
-    "test": "tap tests/*.test.js"
+    "test": "tap tests"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
