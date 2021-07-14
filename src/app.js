@@ -18,13 +18,9 @@ function build(opts = {}) {
     next();
   });
 
-  // Auth Routes
-  const authRoutes = require("./api/routes/auth");
-  authRoutes.forEach((route) => app.route(route));
-
-  // Name Routes
-  const nameRoutes = require("./api/routes/name");
-  nameRoutes.forEach((route) => app.route(route));
+  // routes
+  const routes = require("./api/routes/index");
+  routes.forEach((route) => app.route(route));
 
   return app;
 }
