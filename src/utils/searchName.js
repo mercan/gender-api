@@ -39,7 +39,10 @@ module.exports = async (name) => {
 
   const filterCountry = result
     .slice(1)
-    .filter(({ gender, country }) => result[0].country === country && result[0].gender !== gender);
+    .filter(
+      ({ gender, country }) =>
+        result[0].country === country && result[0].gender !== gender
+    );
 
   if (result.length) {
     if (result[0].gender === "Male") {
@@ -74,7 +77,9 @@ module.exports = async (name) => {
     let probability = String(male.count / totalName);
     probability = probability.substring(probability.indexOf(".") + 1);
     probability =
-      probability[0] === "0" ? probability.substring(1, 3) : probability.substring(0, 2);
+      probability[0] === "0"
+        ? probability.substring(1, 3)
+        : probability.substring(0, 2);
 
     return {
       name: male.name,
@@ -90,7 +95,9 @@ module.exports = async (name) => {
     let probability = String(female.count / totalName);
     probability = probability.substring(probability.indexOf(".") + 1);
     probability =
-      probability[0] === "0" ? probability.substring(1, 3) : probability.substring(0, 2);
+      probability[0] === "0"
+        ? probability.substring(1, 3)
+        : probability.substring(0, 2);
 
     return {
       name: female.name,

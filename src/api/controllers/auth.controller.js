@@ -25,7 +25,9 @@ const signup = async (req, res) => {
     });
   }
 
-  return res.code(200).send({ statusCode: 200, message: "Successfully signed up", token });
+  return res
+    .code(200)
+    .send({ statusCode: 200, message: "Successfully signed up", token });
 };
 
 const signIn = async (req, res) => {
@@ -48,7 +50,9 @@ const signIn = async (req, res) => {
     });
   }
 
-  return res.code(200).send({ statusCode: 200, message: "Successfully signed in", token });
+  return res
+    .code(200)
+    .send({ statusCode: 200, message: "Successfully signed in", token });
 };
 
 module.exports = { signup, signIn };

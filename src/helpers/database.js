@@ -10,5 +10,7 @@ module.exports = () => {
   });
 
   mongoose.connection.on("open", () => console.log("MongoDB: Connected"));
-  mongoose.connection.on("error", (error) => console.error("MongoDB: Error ", error));
+  mongoose.connection.on("error", (error) =>
+    console.error("MongoDB: Error ", error)
+  );
 };

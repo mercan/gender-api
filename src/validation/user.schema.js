@@ -9,13 +9,20 @@ const SignupSchema = Joi.object()
       "any.required": "Name is required",
     }),
 
-    email: Joi.string().required().email().trim().lowercase().min(10).max(100).messages({
-      "string.min": `Email should have a minimum length of {#limit}.`,
-      "string.max": `Email should have a maximum length of {#limit}.`,
-      "string.email": "Email must be a valid email address",
-      "string.empty": "Email cannot be an empty field.",
-      "any.required": "Email is required",
-    }),
+    email: Joi.string()
+      .required()
+      .email()
+      .trim()
+      .lowercase()
+      .min(10)
+      .max(100)
+      .messages({
+        "string.min": `Email should have a minimum length of {#limit}.`,
+        "string.max": `Email should have a maximum length of {#limit}.`,
+        "string.email": "Email must be a valid email address",
+        "string.empty": "Email cannot be an empty field.",
+        "any.required": "Email is required",
+      }),
 
     password: Joi.string().required().min(6).max(100).messages({
       "string.min": `Password should have a minimum length of {#limit}.`,
@@ -32,13 +39,20 @@ const SignupSchema = Joi.object()
 
 const SignInSchema = Joi.object()
   .keys({
-    email: Joi.string().required().email().trim().lowercase().min(10).max(100).messages({
-      "string.min": `Email should have a minimum length of {#limit}.`,
-      "string.max": `Email should have a maximum length of {#limit}.`,
-      "string.email": "Email must be a valid email address",
-      "string.empty": "Email cannot be an empty field.",
-      "any.required": "Email is required",
-    }),
+    email: Joi.string()
+      .required()
+      .email()
+      .trim()
+      .lowercase()
+      .min(10)
+      .max(100)
+      .messages({
+        "string.min": `Email should have a minimum length of {#limit}.`,
+        "string.max": `Email should have a maximum length of {#limit}.`,
+        "string.email": "Email must be a valid email address",
+        "string.empty": "Email cannot be an empty field.",
+        "any.required": "Email is required",
+      }),
 
     password: Joi.string().required().min(6).max(100).messages({
       "string.min": `Password should have a minimum length of {#limit}.`,

@@ -28,11 +28,15 @@ module.exports = {
     user: {
       createApiKey: {
         max: Number(process.env.RATE_LIMIT_USER_CREATE_API_KEY_MAX),
-        timeWindow: Number(process.env.RATE_LIMIT_USER_CREATE_API_KEY_TIME_WINDOW),
+        timeWindow: Number(
+          process.env.RATE_LIMIT_USER_CREATE_API_KEY_TIME_WINDOW
+        ),
       },
       deleteApiKey: {
         max: Number(process.env.RATE_LIMIT_USER_DELETE_API_KEY_MAX),
-        timeWindow: Number(process.env.RATE_LIMIT_USER_DELETE_API_KEY_TIME_WINDOW),
+        timeWindow: Number(
+          process.env.RATE_LIMIT_USER_DELETE_API_KEY_TIME_WINDOW
+        ),
       },
     },
   },
