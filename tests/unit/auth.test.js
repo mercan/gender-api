@@ -3,31 +3,30 @@ const mongoose = require("mongoose");
 const buildFastify = require("../../src/app");
 const User = require("../../src/models/User");
 const NameService = require("../../src/services/Name");
+const fastify = buildFastify();
 
 const signupBody = {
-  full_name: "İbrahim Can Mercan",
-  email: "email_test@example.com",
+  full_name: "İbrahim Can",
+  email: "email_test0@example.com",
   password: "1234567890",
 };
 
-const loginBody = {
-  email: "email_test@example.com",
+const signIn = {
+  email: "email_test0@example.com",
   password: "1234567890",
 };
 
-const loginBodyEmailError = {
-  email: "email_test@gmail.com",
+const signInEmailError = {
+  email: "email_test0@gmail.com",
   password: "1234567890",
 };
 
-const loginBodyPassError = {
-  email: "email_test@example.com",
+const signInPassError = {
+  email: "email_test0@example.com",
   password: "1234567",
 };
 
 tap.test("POST `auth/signup` Add New User", async (t) => {
-  const fastify = buildFastify();
-
   const response = await fastify.inject({
     method: "POST",
     url: "auth/signup/",
@@ -35,18 +34,17 @@ tap.test("POST `auth/signup` Add New User", async (t) => {
   });
 
   const body = JSON.parse(response.body);
-  const { statusCode, token } = body;
+  const { statusCode, message, token } = body;
 
   t.equal(response.statusCode, 200);
   t.type(body, Object);
 
   t.equal(statusCode, 200);
+  t.equal(message, "Successfully signed up");
   t.not(token, undefined);
 });
 
 tap.test("POST `auth/signup` New User Email Error", async (t) => {
-  const fastify = buildFastify();
-
   const response = await fastify.inject({
     method: "POST",
     url: "auth/signup/",
@@ -64,31 +62,28 @@ tap.test("POST `auth/signup` New User Email Error", async (t) => {
 });
 
 tap.test("POST `auth/signIn` User Sign In", async (t) => {
-  const fastify = buildFastify();
-
   const response = await fastify.inject({
     method: "POST",
     url: "auth/signIn/",
-    body: loginBody,
+    body: signIn,
   });
 
   const body = JSON.parse(response.body);
-  const { statusCode, token } = body;
+  const { statusCode, message, token } = body;
 
   t.equal(response.statusCode, 200);
   t.type(body, Object);
 
   t.equal(statusCode, 200);
+  t.equal(message, "Successfully signed in");
   t.not(token, undefined);
 });
 
 tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
-  const fastify = buildFastify();
-
   const response = await fastify.inject({
     method: "POST",
     url: "auth/signIn/",
-    body: loginBodyEmailError,
+    body: signInEmailError,
   });
 
   const body = JSON.parse(response.body);
@@ -102,8 +97,6 @@ tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
 });
 
 tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
-  const fastify = buildFastify();
-
   t.teardown(() => fastify.close());
   t.teardown(() => NameService.disconnect());
   t.teardown(() => User.deleteOne({ email: signupBody.email }));
@@ -112,7 +105,7 @@ tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
   const response = await fastify.inject({
     method: "POST",
     url: "auth/signIn/",
-    body: loginBodyPassError,
+    body: signInPassError,
   });
 
   const body = JSON.parse(response.body);
