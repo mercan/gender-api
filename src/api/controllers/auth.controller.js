@@ -21,11 +21,11 @@ const signup = async (req, res) => {
   if (error && error.code === 11000) {
     return res.code(409).send({
       statusCode: 409,
-      message: "Email is already taken",
+      message: "Email already exists",
     });
   }
 
-  return res.code(200).send({ statusCode: 200, token });
+  return res.code(200).send({ statusCode: 200, message: "Successfully signed up", token });
 };
 
 const signIn = async (req, res) => {
@@ -48,7 +48,7 @@ const signIn = async (req, res) => {
     });
   }
 
-  return res.code(200).send({ statusCode: 200, token });
+  return res.code(200).send({ statusCode: 200, message: "Successfully signed in", token });
 };
 
 module.exports = { signup, signIn };

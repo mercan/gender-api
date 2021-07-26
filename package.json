@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "fastify": "^3.18.1",
     "fastify-compress": "^3.6.0",

@@ -60,7 +60,7 @@ tap.test("POST `auth/signup` New User Email Error", async (t) => {
   t.type(body, Object);
 
   t.equal(statusCode, 409);
-  t.equal(message, "Email is already taken");
+  t.equal(message, "Email already exists");
 });
 
 tap.test("POST `auth/signIn` User Sign In", async (t) => {
@@ -98,7 +98,7 @@ tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
   t.type(body, Object);
 
   t.equal(statusCode, 400);
-  t.equal(message, "Email not registered");
+  t.equal(message, "User not found");
 });
 
 tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
@@ -122,5 +122,5 @@ tap.test("POST `auth/signIn` User Sign In Email Error", async (t) => {
   t.type(body, Object);
 
   t.equal(statusCode, 400);
-  t.equal(message, "Password is incorrect");
+  t.equal(message, "Incorrect password");
 });

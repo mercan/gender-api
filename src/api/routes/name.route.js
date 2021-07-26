@@ -10,7 +10,7 @@ const routes = [
         max: config.rateLimit.name.max,
         timeWindow: config.rateLimit.name.timeWindow,
         allowList: function (req) {
-          return req.headers["authorization"] !== undefined;
+          return req.headers["x-api-key"] !== undefined;
         },
       },
     },

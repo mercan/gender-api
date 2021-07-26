@@ -23,16 +23,28 @@ class UserService {
     const userRecord = await this.userModel.findOne({ email });
 
     if (!userRecord) {
-      return { message: "Email not registered" };
+      return { message: "User not found" };
     }
 
     const isMatch = userRecord.comparePassword(password);
 
     if (!isMatch) {
-      return { message: "Password is incorrect" };
+      return { message: "Incorrect password" };
     }
 
     return { token: tokenCreate(userRecord) };
+  }
+
+  async createApiKey(user) {
+    const userRecord = await this.userModel.findOne({ email: user.email });
+
+    if (!userRecord) {
+      return { error: "User not found" };
+    }
+
+    const apiKey = await userRecord.createApiKey();
+
+    return apiKey;
   }
 }
 

@@ -8,6 +8,7 @@ const Name = require("../../services/Name");
 const getName = async (req, res) => {
   if (!req.query.name) {
     return res.code(400).send({
+      statusCode: 400,
       message: "Name is required",
       example: "https://api-gender.herokuapp.com/search/?name=İbrahim",
     });

@@ -1,6 +1,8 @@
+const config = require("../config/index");
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const Schema = mongoose.Schema;
 
 const User = new Schema(
   {
@@ -25,12 +27,37 @@ const User = new Schema(
       maxlength: 100,
       minlength: 6,
     },
+
+    apiKey: {
+      type: String,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
 
+// Static Methods
+
+// Istance methods
 User.methods.comparePassword = function (plainPassword) {
   return bcrypt.compareSync(plainPassword, this.password);
+};
+
+User.methods.createApiKey = async function () {
+  const apiKey = crypto.randomBytes(26).toString("hex");
+
+  const userRecord = await userModel.findOne({ apiKey }, "_id");
+
+  if (userRecord) {
+    return this.createApiKey();
+  }
+
+  const hash = crypto.createHash("sha512").update(`${apiKey}:${config.apiSecretKey}`).digest("hex");
+
+  this.apiKey = hash;
+  this.save();
+
+  return apiKey;
 };
 
 User.pre("save", function (next) {
@@ -44,4 +71,5 @@ User.pre("save", function (next) {
 
 User.index({ email: 1 });
 
-module.exports = mongoose.model("user", User);
+const userModel = mongoose.model("user", User);
+module.exports = userModel;
