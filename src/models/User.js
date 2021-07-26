@@ -37,6 +37,14 @@ const User = new Schema(
 );
 
 // Static Methods
+User.statics.findByApiKey = async function (apiKey) {
+  const hash = crypto
+    .createHash("sha512")
+    .update(`${apiKey}:${config.apiSecretKey}`)
+    .digest("hex");
+
+  return await this.findOne({ apiKey: hash });
+};
 
 // Istance methods
 User.methods.comparePassword = function (plainPassword) {
@@ -45,17 +53,18 @@ User.methods.comparePassword = function (plainPassword) {
 
 User.methods.createApiKey = async function () {
   const apiKey = crypto.randomBytes(26).toString("hex");
-
   const userRecord = await userModel.findOne({ apiKey }, "_id");
 
   if (userRecord) {
     return this.createApiKey();
   }
 
-  const hash = crypto.createHash("sha512").update(`${apiKey}:${config.apiSecretKey}`).digest("hex");
-
+  const hash = crypto
+    .createHash("sha512")
+    .update(`${apiKey}:${config.apiSecretKey}`)
+    .digest("hex");
   this.apiKey = hash;
-  this.save();
+  await this.save();
 
   return apiKey;
 };

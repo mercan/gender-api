@@ -15,7 +15,12 @@ class UserService {
       const userRecord = await this.userModel.create(user);
       return { token: tokenCreate(userRecord) };
     } catch (err) {
-      return { error: { code: err.code, keyPattern: Object.keys(err.keyPattern) } };
+      return {
+        error: {
+          code: err.code,
+          keyPattern: Object.keys(err.keyPattern),
+        },
+      };
     }
   }
 
@@ -45,6 +50,16 @@ class UserService {
     const apiKey = await userRecord.createApiKey();
 
     return apiKey;
+  }
+
+  async findByApiKey(apiKey) {
+    const userRecord = await this.userModel.findByApiKey(apiKey);
+
+    if (!userRecord) {
+      return { error: "User not found" };
+    }
+
+    return userRecord;
   }
 }
 
