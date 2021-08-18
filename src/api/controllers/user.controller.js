@@ -1,4 +1,4 @@
-// User Service
+// Services
 const UserService = require("../../services/User");
 
 const createApiKey = async (req, res) => {

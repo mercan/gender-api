@@ -1,4 +1,4 @@
-const config = require("../config/index");
+const { redis: redisConf } = require("../config/index");
 const redis = require("redis");
 
 class RedisService {
@@ -16,9 +16,9 @@ class RedisService {
 }
 
 const options = {
-  password: config.redis.password,
-  host: config.redis.hostname,
-  port: config.redis.port,
+  password: redisConf.password,
+  host: redisConf.hostname,
+  port: redisConf.port,
   no_ready_check: true,
 };
 
